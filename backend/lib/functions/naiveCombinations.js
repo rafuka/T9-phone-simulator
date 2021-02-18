@@ -2,6 +2,11 @@ import { NUM_CHAR_MAP } from '../constants';
 
 function naiveCombinations(digits) {
     let combinations = NUM_CHAR_MAP[digits[0]];
+
+    if (digits.length === 1) {
+        return combinations;
+    }
+    
     const result = [];
     
     for (let i = 1; i < digits.length; i++) {
