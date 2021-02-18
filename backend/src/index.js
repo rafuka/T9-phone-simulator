@@ -1,32 +1,18 @@
 import express from 'express';
 import {
-    naiveCombinations,
-    DictTrie,
-    dictionary
-} from '../lib';
-
-const trieDictionary = new DictTrie(dictionary);
+    digitsValidation,
+    wordValidation,
+} from './middleware/validation';
+import {
+    digitsController,
+    wordsController,
+} from './controllers';
 
 const app = express();
 
-app.get('/words/:digits', (req, res) => {
-    const { digits } = req.params;
-    const words = trieDictionary.getWords(digits);
-    res.end(JSON.stringify(words));
-});
-
-app.get('/naive/:digits', (req, res) => {
-    const { digits } = req.params;
-    const words = naiveCombinations(digits);
-    res.end(JSON.stringify(words));
-});
-
-app.get('/insert/:word', (req, res) => {
-    const { word } = req.params;
-    trieDictionary.insert(word);
-    res.status(200);
-    res.end();
-});
+app.get('/words/:digits', digitsValidation, digitsController.getDictionaryWords);
+app.get('/naive/:digits', digitsValidation, digitsController.getNaiveCombinations);
+app.get('/insert/:word', wordValidation, wordsController.insertWord);
 
 app.listen(3000, () => {
     console.log('App listening on port 3000');
