@@ -8,7 +8,11 @@ import {
     wordsController,
 } from './controllers';
 
+import cors from 'cors';
+
 const app = express();
+
+app.use(cors());
 
 app.get('/words/:digits', digitsValidation, digitsController.getDictionaryWords);
 app.get('/naive/:digits', digitsValidation, digitsController.getNaiveCombinations);
