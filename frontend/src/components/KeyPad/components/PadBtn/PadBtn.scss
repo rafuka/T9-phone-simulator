@@ -1,0 +1,23 @@
+.base {
+    align-items: center;
+    box-shadow: inset 0px 0px 1px rgba(0,0,0,0.4);
+    cursor: pointer;
+    display: flex;
+    flex-basis: 33.3%;
+    flex-direction: column;
+    height: 50px;
+    justify-content: center;
+    user-select: none;
+
+    &:hover {
+        background-color: #fafafa;
+    }
+
+    &:active {
+        background-color: #eee;
+    }
+}
+
+.numValue {
+    font-size: 24px;
+}

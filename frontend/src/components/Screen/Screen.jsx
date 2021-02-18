@@ -1,10 +1,21 @@
 import React from 'react';
+import { SuggestionsList } from './components';
 import styles from './Screen.scss';
 
-const Screen = () => {
+const Screen = ({
+    text
+}) => {
     return (
         <div className={styles.base}>
+            <input
+                className={styles.screen}
+                type="text"
+                value={text}
+                disabled
+            />
+            <div className={styles.suggestionsList}>
 
+            </div>
         </div>
     );
 };

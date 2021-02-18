@@ -1,0 +1,16 @@
+.base {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+}
+
+.innerWrapper {
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 10px;
+    max-width: 360px;
+    min-width: 275px;
+    overflow: hidden;
+    width: 100%;
+}

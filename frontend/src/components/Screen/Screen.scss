@@ -1,3 +1,20 @@
 .base {
-    
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.screen {
+    background-color: #fafafa;
+    border: none;
+    height: 70px;
+    padding: 10px;
+    width: 100%;
+}
+
+.suggestionsList {
+    background-color: #f3f3f3;
+    height: 100px;
+    width: 100%;
 }
