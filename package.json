@@ -4,9 +4,10 @@
   "description": "Kiwi's application task",
   "main": "index.js",
   "dependencies": {
+    "concurrently": "^5.3.0",
+    "express": "^4.17.1",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "express": "^4.17.1"
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -26,8 +27,12 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "start-backend": "nodemon --exec babel-node backend/src/index.js",
-    "dev": "webpack serve --open chrome --mode development",
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "babel-node backend/src/index.js",
+    "start-frontend": "webpack serve --open chrome --mode production",
+    "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
+    "dev-backend": "nodemon --exec babel-node backend/src/index.js",
+    "dev-frontend": "webpack serve --open chrome --mode development",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
