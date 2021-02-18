@@ -1,13 +1,14 @@
 import express from 'express';
-import naiveCombinations from './lib/naiveCombinations';
-import DictTrie from './lib/classes/DictTrie';
-import dictionary from './lib/dictionary.json';
+import {
+    naiveCombinations,
+    DictTrie,
+    dictionary
+} from '../lib';
 
 const trieDictionary = new DictTrie(dictionary);
 
 const app = express();
 
-// TODO: validate digits and words
 app.get('/words/:digits', (req, res) => {
     const { digits } = req.params;
     const words = trieDictionary.getWords(digits);
