@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Screen,
     KeyPad,
@@ -8,6 +8,7 @@ import styles from './App.scss';
 
 const App = () => {
     const [text, setText] = useState('');
+ 
     return (
         <div className={styles.base}>
             <div className={styles.innerWrapper}>

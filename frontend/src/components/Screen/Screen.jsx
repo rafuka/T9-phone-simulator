@@ -1,5 +1,4 @@
 import React from 'react';
-import { SuggestionsList } from './components';
 import styles from './Screen.scss';
 
 const Screen = ({
