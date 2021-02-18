@@ -1,9 +1,16 @@
 import React from 'react';
-import './App.scss';
+import {
+    Screen,
+    KeyPad,
+} from './components';
+import './App.global.scss';
 
 const App = () => {
     return (
-        <h1>Hello Kiwi!</h1>
+        <div>
+            <Screen />
+            <KeyPad />
+        </div>
     );
 };
 
