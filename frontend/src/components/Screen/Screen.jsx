@@ -2,18 +2,18 @@ import React from 'react';
 import styles from './Screen.scss';
 
 const Screen = ({
-    text
+    text,
+    currentWord,
+    suggestionsList,
 }) => {
     return (
         <div className={styles.base}>
-            <input
-                className={styles.screen}
-                type="text"
-                value={text}
-                disabled
-            />
+            <div className={styles.screen}>
+                {text}
+                <span className={styles.currentWord}>{currentWord}</span>
+            </div>
             <div className={styles.suggestionsList}>
-
+                {suggestionsList.map((val) => <span className={styles.suggestedWord}>{val}</span>)}
             </div>
         </div>
     );

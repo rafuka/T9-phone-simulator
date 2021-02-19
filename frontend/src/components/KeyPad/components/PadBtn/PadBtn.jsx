@@ -7,7 +7,11 @@ const PadBtn = forwardRef(({
     onClick,
 }, ref) => {
     return (
-        <div className={styles.base} ref={ref} onClick={onClick}>
+        <div
+            className={styles.base}
+            ref={ref}
+            onClick={onClick}
+        >
             <span className={styles.numValue}>{value}</span>
             <span className={styles.subText}>{subText}</span>
         </div>
