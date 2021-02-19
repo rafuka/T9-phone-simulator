@@ -6,6 +6,8 @@ import {
 import './App.global.scss';
 import styles from './App.scss';
 
+const BASE_URL = 'http://localhost:3000';
+
 const App = () => {
     const [text, setText] = useState('');
     const [currentWord, setCurrentWord] = useState({ word: '', index: 0});
@@ -13,7 +15,6 @@ const App = () => {
     const [suggestionsList, setSuggestionsList] = useState([]);
 
     const handleKeypadBtnPressed = (key) => {
-        // console.log('on keypad btn pressed handler!', key);
         switch(key) {
             case "0":
                 acceptCurrentSuggestion()
@@ -25,6 +26,7 @@ const App = () => {
                 handleSelectSuggestion(1);
                 break;
             case "+":
+                handleAddWordToDictionary();
                 break;
             default:
                 setCurrentDigits(currentDigits + key);
@@ -32,7 +34,6 @@ const App = () => {
     };
 
     const acceptCurrentSuggestion = () => {
-        // console.log('on acceptCurrentSuggestion ');
         if (currentWord.word !== '') {
             const newText = text + currentWord.word;
             setText(newText);
@@ -55,9 +56,27 @@ const App = () => {
         });
     };
 
+    const handleAddWordToDictionary = () => {
+        if(currentWord.word !== '') {
+            fetch(`${BASE_URL}/insert/${currentWord.word}`)
+                .then(response => response.json())
+                .then(result => {
+                    // console.log(result);
+                    setSuggestionsList([result.message])
+                });
+        } else {
+            const textArr = text.split(' ');
+            const newCurrentWord = textArr.slice(-1)[0];
+            const newText = textArr.slice(0, -1).join(' ') + ' ';
+
+            setText(newText);
+            setCurrentWord({ word: newCurrentWord, index: 0 });
+        }
+    };
+
     useEffect(() => {
         if(currentDigits) {
-            fetch(`http://localhost:3000/words/${currentDigits}`)
+            fetch(`${BASE_URL}/words/${currentDigits}`)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
@@ -76,7 +95,9 @@ const App = () => {
  
     return (
         <div className={styles.base}>
+            
             <div className={styles.innerWrapper}>
+                
                 <Screen
                     text={text}
                     currentWord={currentWord.word}

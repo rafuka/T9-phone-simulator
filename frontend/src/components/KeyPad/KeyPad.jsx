@@ -14,7 +14,7 @@ const keys = [
     { value: "9", subText: "wxyz" },
     { value: "*", subText: "next->" },
     { value: "0", subText: "_" },
-    { value: "+", subText: "add" },
+    { value: "+", subText: "select | add" },
 ]
 
 const KeyPad = ({
