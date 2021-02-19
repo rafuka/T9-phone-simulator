@@ -3,10 +3,12 @@ import {
     Screen,
     KeyPad,
 } from './components';
+import { wordToDigits } from './helpers';
 import './App.global.scss';
 import styles from './App.scss';
 
 const BASE_URL = 'http://localhost:3000';
+
 
 const App = () => {
     const [text, setText] = useState('');
@@ -14,6 +16,7 @@ const App = () => {
     const [currentDigits, setCurrentDigits] = useState('');
     const [suggestionsList, setSuggestionsList] = useState([]);
     const [naiveMode, setNaiveMode] = useState(false);
+    const [isAddMode, setIsAddMode] = useState(false);
 
     const handleKeypadBtnPressed = (key) => {
         switch(key) {
@@ -72,6 +75,8 @@ const App = () => {
 
             setText(newText);
             setCurrentWord({ word: newCurrentWord, index: 0 });
+            setIsAddMode(true);
+            setCurrentDigits(wordToDigits(newCurrentWord));
         }
     };
 
@@ -80,9 +85,16 @@ const App = () => {
             fetch(`${BASE_URL}/${naiveMode ? 'naive' : 'words'}/${currentDigits}`)
                 .then(response => response.json())
                 .then(result => {
-                    if(result.length > 0) {
-                        setSuggestionsList(result);
-                        setCurrentWord({ word: result[0], index: 0 });
+                    if (result.length > 0) {
+                        if (isAddMode) {
+                            console.log('in is add mode condition!', currentWord.word);
+                            setSuggestionsList(result);
+                            setCurrentWord({ word: currentWord.word, index: -1 });
+                            setIsAddMode(false);
+                        } else {
+                            setSuggestionsList(result);
+                            setCurrentWord({ word: result[0], index: 0 });
+                        }
                     } else {
                         setSuggestionsList([`No suggestions found for digits: ${currentDigits}`]);
                     }
