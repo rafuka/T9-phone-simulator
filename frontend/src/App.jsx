@@ -21,6 +21,7 @@ const App = () => {
     const [suggestionsList, setSuggestionsList] = useState([]);
     const [naiveMode, setNaiveMode] = useState(false);
     const [isAddMode, setIsAddMode] = useState(false);
+    const [withSpace, setWithSpace] = useState(false);
 
     const handleKeypadBtnPressed = (key) => {
         switch(key) {
@@ -48,9 +49,11 @@ const App = () => {
             setCurrentWord({ word: '', index: 0 });
             setCurrentDigits('');
             setSuggestionsList([]);
+            setWithSpace(false);
         } else {
             const newText = text + ' ';
             setText(newText);
+            setWithSpace(true);
         }
     };
 
@@ -122,6 +125,7 @@ const App = () => {
                         text={text}
                         currentWord={currentWord.word}
                         suggestionsList={suggestionsList}
+                        hasSpace={withSpace}
                     />
                     <KeyPad
                         onKeypadBtnPressed={handleKeypadBtnPressed}

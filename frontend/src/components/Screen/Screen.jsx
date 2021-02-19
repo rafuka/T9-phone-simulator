@@ -1,3 +1,4 @@
+import { NUMBER_BINARY_OPERATORS } from '@babel/types';
 import React from 'react';
 import styles from './Screen.scss';
 
@@ -5,11 +6,13 @@ const Screen = ({
     text,
     currentWord,
     suggestionsList,
+    hasSpace,
 }) => {
     return (
         <div className={styles.base}>
             <div className={styles.screen}>
-                {text}
+                <span className={styles.text}>{text}</span>
+                {hasSpace ? <span>&nbsp;</span> : null}
                 <span className={styles.currentWord}>{currentWord}</span>
             </div>
             <div className={styles.suggestionsList}>
