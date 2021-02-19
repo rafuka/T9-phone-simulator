@@ -1,4 +1,3 @@
-import { NUMBER_BINARY_OPERATORS } from '@babel/types';
 import React from 'react';
 import styles from './Screen.scss';
 
@@ -11,9 +10,13 @@ const Screen = ({
     return (
         <div className={styles.base}>
             <div className={styles.screen}>
-                <span className={styles.text}>{hasSpace ? text.slice(0, -1) : text}</span>
+                <span className={styles.text}>
+                    {hasSpace ? text.slice(0, -1) : text}
+                </span>
                 {hasSpace ? <span>&nbsp;</span> : null}
-                <span className={styles.currentWord}>{currentWord}</span>
+                <span className={styles.currentWord}>
+                    {currentWord}
+                </span>
             </div>
             <div className={styles.suggestionsList}>
                 {suggestionsList.map((word) => (
