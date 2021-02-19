@@ -12,7 +12,9 @@ const CHAR_NUM_MAP = {
 export function wordToDigits(str) {
     let digits = '';
     for (let i = 0; i < str.length; i++) {
-        digits += CHAR_NUM_MAP[str[i]];
+        if (CHAR_NUM_MAP[str[i]]) {
+            digits += CHAR_NUM_MAP[str[i]];
+        }
     }
 
     return digits;

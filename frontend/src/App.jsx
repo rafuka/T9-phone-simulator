@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Screen,
-    KeyPad,
-} from './components';
+import { Screen, KeyPad } from './components';
 import { wordToDigits } from './helpers';
+import { KEYPAD_KEYS } from './constants';
+import { BASE_URL, BACKEND_PORT } from '../../settings';
 import './App.global.scss';
 import styles from './App.scss';
-import {
-    BASE_URL,
-    BACKEND_PORT,
-} from '../../settings';
+
 
 const apiUrl = `${BASE_URL}:${BACKEND_PORT}`;
 
-
 const App = () => {
     const [text, setText] = useState('');
-    const [currentWord, setCurrentWord] = useState({ word: '', index: 0});
+    const [currentWord, setCurrentWord] = useState({ word: '', index: 0 });
     const [currentDigits, setCurrentDigits] = useState('');
     const [suggestionsList, setSuggestionsList] = useState([]);
     const [naiveMode, setNaiveMode] = useState(false);
@@ -24,25 +19,31 @@ const App = () => {
     const [withSpace, setWithSpace] = useState(false);
 
     const handleKeypadBtnPressed = (key) => {
-        switch(key) {
+        switch (key) {
             case "0":
-                acceptCurrentSuggestion()
+                deselectOrSpace()
                 break;
             case "1":
-                setCurrentDigits(currentDigits.slice(0, -1));
+                deleteFromCurrentSelection();
                 break;
             case "*":
-                handleSelectSuggestion(1);
+                selectNextSuggestion(1);
                 break;
             case "+":
-                handleAddWordToDictionary();
+                addWordToDictionary();
                 break;
             default:
                 setCurrentDigits(currentDigits + key);
         }
     };
 
-    const acceptCurrentSuggestion = () => {
+    const deleteFromCurrentSelection = () => {
+        if (currentDigits.length > 0) {
+            setCurrentDigits(currentDigits.slice(0, -1));
+        }
+    }
+
+    const deselectOrSpace = () => {
         if (currentWord.word !== '') {
             const newText = text + currentWord.word;
             setText(newText);
@@ -50,24 +51,24 @@ const App = () => {
             setCurrentDigits('');
             setSuggestionsList([]);
             setWithSpace(false);
-        } else {
+        } else if (text[text.length - 1] !== ' ') {  // if there's no current selection, just add a space
             const newText = text + ' ';
             setText(newText);
             setWithSpace(true);
         }
     };
 
-    const handleSelectSuggestion = (value) => {
+    const selectNextSuggestion = (step) => {
         const { index } = currentWord;
-        const newIndex = (index + value) % suggestionsList.length;
+        const newIndex = (index + step) % suggestionsList.length;
         setCurrentWord({
             word: suggestionsList[newIndex],
             index: newIndex,
         });
     };
 
-    const handleAddWordToDictionary = () => {
-        if(currentWord.word !== '') {
+    const addWordToDictionary = () => {
+        if (currentWord.word !== '') {
             fetch(`${apiUrl}/insert/${currentWord.word}`)
                 .then(response => response.json())
                 .then(result => {
@@ -87,7 +88,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        if(currentDigits) {
+        if (currentDigits) {
             fetch(`${apiUrl}/${naiveMode ? 'naive' : 'words'}/${currentDigits}`)
                 .then(response => response.json())
                 .then(result => {
@@ -101,7 +102,7 @@ const App = () => {
                             setCurrentWord({ word: result[0], index: 0 });
                         }
                     } else {
-                        setSuggestionsList([`No suggestions found for digits: ${currentDigits}`]);
+                        setSuggestionsList([`No suggestions found for digits: ${currentDigits}.`]);
                     }
                 });
         } else {
@@ -109,7 +110,7 @@ const App = () => {
             setCurrentWord({ word: '', index: 0 });
         }
     }, [currentDigits, naiveMode])
- 
+
     return (
         <div className={styles.base}>
             <div className={styles.innerWrapper}>
@@ -129,7 +130,7 @@ const App = () => {
                     />
                     <KeyPad
                         onKeypadBtnPressed={handleKeypadBtnPressed}
-                        onSelectSuggestion={handleSelectSuggestion}
+                        keys={KEYPAD_KEYS}
                     />
                 </div>
             </div>
