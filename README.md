@@ -23,7 +23,7 @@ Whenever a key is pressed, a call to the API is made in order to fetch the possi
 
 The API also allows for inserting words that are not included in the dictionary. For this, you need to press the `+` key while a word is selected. If you press the `+` key when a word is not selected, it will select the last word on the text.
 
-Once the desired word is selected, you can press the `0` key to de-select it, and either press it again to insert a space, or you can start writing another word right besides the previouis one. This allows to create composed words that you can then add to the dictionary. For example, in order to add the word "hola" to the dictionary you would press the following sequence of keys: `4 * 0 6 * * 0 5 * * 0 2 0 + +`
+Once the desired word is selected, you can press the `0` key to de-select it, and either press it again to insert a space, or you can start writing another word right besides the previouis one. This allows to create composed words that you can then add to the dictionary. For example, in order to add the word "hola" to the dictionary you would press the following sequence of keys: `4 * 0 6 * * 0 5 * * 0 2 0 + +`.
 
 You can also delete characters/digits by pressing the `1` key.
 
