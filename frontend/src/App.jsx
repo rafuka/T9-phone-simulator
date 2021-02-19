@@ -13,6 +13,7 @@ const App = () => {
     const [currentWord, setCurrentWord] = useState({ word: '', index: 0});
     const [currentDigits, setCurrentDigits] = useState('');
     const [suggestionsList, setSuggestionsList] = useState([]);
+    const [naiveMode, setNaiveMode] = useState(false);
 
     const handleKeypadBtnPressed = (key) => {
         switch(key) {
@@ -61,7 +62,7 @@ const App = () => {
             fetch(`${BASE_URL}/insert/${currentWord.word}`)
                 .then(response => response.json())
                 .then(result => {
-                    // console.log(result);
+                    console.log(result);
                     setSuggestionsList([result.message])
                 });
         } else {
@@ -76,10 +77,9 @@ const App = () => {
 
     useEffect(() => {
         if(currentDigits) {
-            fetch(`${BASE_URL}/words/${currentDigits}`)
+            fetch(`${BASE_URL}/${naiveMode ? 'naive' : 'words'}/${currentDigits}`)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result);
                     if(result.length > 0) {
                         setSuggestionsList(result);
                         setCurrentWord({ word: result[0], index: 0 });
@@ -91,22 +91,29 @@ const App = () => {
             setSuggestionsList([]);
             setCurrentWord({ word: '', index: 0 });
         }
-    }, [currentDigits])
+    }, [currentDigits, naiveMode])
  
     return (
         <div className={styles.base}>
-            
             <div className={styles.innerWrapper}>
-                
-                <Screen
-                    text={text}
-                    currentWord={currentWord.word}
-                    suggestionsList={suggestionsList}
-                />
-                <KeyPad
-                    onKeypadBtnPressed={handleKeypadBtnPressed}
-                    onSelectSuggestion={handleSelectSuggestion}
-                />
+                <button
+                    className={styles.modeButton}
+                    onClick={() => setNaiveMode(!naiveMode)}
+                >
+                    {naiveMode ? 'Naive mode' : 'Dictionary mode'}
+                </button>
+
+                <div className={styles.phoneWrapper}>
+                    <Screen
+                        text={text}
+                        currentWord={currentWord.word}
+                        suggestionsList={suggestionsList}
+                    />
+                    <KeyPad
+                        onKeypadBtnPressed={handleKeypadBtnPressed}
+                        onSelectSuggestion={handleSelectSuggestion}
+                    />
+                </div>
             </div>
         </div>
     );

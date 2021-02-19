@@ -8,10 +8,32 @@
 }
 
 .innerWrapper {
-    border: 1px solid rgba(0,0,0,0.2);
-    border-radius: 10px;
     max-width: 360px;
     min-width: 275px;
-    overflow: hidden;
+    position: relative;
     width: 100%;
+}
+
+.phoneWrapper {
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modeButton {
+    background-color: white;
+    border: 1px solid blue;
+    border-radius: 5px;
+    color: blue;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    right: 0px;
+    top: -35px;
+    width: 110px;
+
+    &:hover, &.active {
+        border-color: lighten(blue, 20%);
+        color: lighten(blue, 10%);
+    }
 }
