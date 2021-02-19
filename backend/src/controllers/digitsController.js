@@ -1,8 +1,7 @@
-import dictionary from '../../lib/dictionary.json';
-import { DictTrie } from '../../lib/classes';
+import trieDictionary from '../../lib/trieDictionary';
 import { naiveCombinations } from '../../lib/functions';
 
-const trieDictionary = new DictTrie(dictionary);
+
 
 const digitsController = {};
 
