@@ -47,7 +47,7 @@
     "moduleNameMapper": {
       "\\.(css|scss)$": "identity-obj-proxy"
     },
-    "setupTestFrameworkScriptFile": "./test-setup.js"
+    "setupFilesAfterEnv": ["./test-setup.js"]
   },
   "author": "Rafael Garcia",
   "license": "ISC"
