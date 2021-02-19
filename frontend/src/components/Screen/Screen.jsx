@@ -13,7 +13,11 @@ const Screen = ({
                 <span className={styles.currentWord}>{currentWord}</span>
             </div>
             <div className={styles.suggestionsList}>
-                {suggestionsList.map((val) => <span className={styles.suggestedWord}>{val}</span>)}
+                {suggestionsList.map((word) => (
+                    <span className={styles.suggestedWord} key={word}>
+                        {word}
+                    </span>
+                ))}
             </div>
         </div>
     );

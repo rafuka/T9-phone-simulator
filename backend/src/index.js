@@ -1,5 +1,8 @@
 import app from './app';
+import { BACKEND_PORT } from '../../settings';
 
-app.listen(3000, () => {
-    console.log('App listening on port 3000');
+const port = BACKEND_PORT || 3000;
+
+app.listen(port, () => {
+    console.log(`App listening on port ${port}`);
 });

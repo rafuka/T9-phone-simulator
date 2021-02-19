@@ -6,8 +6,12 @@ import {
 import { wordToDigits } from './helpers';
 import './App.global.scss';
 import styles from './App.scss';
+import {
+    BASE_URL,
+    BACKEND_PORT,
+} from '../../settings';
 
-const BASE_URL = 'http://localhost:3000';
+const apiUrl = `${BASE_URL}:${BACKEND_PORT}`;
 
 
 const App = () => {
@@ -46,7 +50,6 @@ const App = () => {
             setSuggestionsList([]);
         } else {
             const newText = text + ' ';
-            console.log('new text: ', newText);
             setText(newText);
         }
     };
@@ -62,7 +65,7 @@ const App = () => {
 
     const handleAddWordToDictionary = () => {
         if(currentWord.word !== '') {
-            fetch(`${BASE_URL}/insert/${currentWord.word}`)
+            fetch(`${apiUrl}/insert/${currentWord.word}`)
                 .then(response => response.json())
                 .then(result => {
                     console.log(result);
@@ -82,12 +85,11 @@ const App = () => {
 
     useEffect(() => {
         if(currentDigits) {
-            fetch(`${BASE_URL}/${naiveMode ? 'naive' : 'words'}/${currentDigits}`)
+            fetch(`${apiUrl}/${naiveMode ? 'naive' : 'words'}/${currentDigits}`)
                 .then(response => response.json())
                 .then(result => {
                     if (result.length > 0) {
                         if (isAddMode) {
-                            console.log('in is add mode condition!', currentWord.word);
                             setSuggestionsList(result);
                             setCurrentWord({ word: currentWord.word, index: -1 });
                             setIsAddMode(false);
