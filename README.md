@@ -29,7 +29,8 @@ You can also delete characters/digits by pressing the `1` key.
 
 On the top of the virtual phone there is a button that will change the suggested words from "Dictionary mode" to "Naive mode". Naive mode shows all the possible combinations based on the digits that have been pressed.
 
-## Limitations
+## ToDo
 
-* The delete functionality only works with selected words. The text that has been "approved" cannot be deleted.
-* Naive search for long sequences of digits can take a very long time and may freeze the app.
+* Improve delete functionality (The delete functionality only works with selected words. The text that has been "approved" cannot be deleted).
+* Add tests for API endpoints.
+* Improve FE test's coverage.
