@@ -33,4 +33,3 @@ On the top of the virtual phone there is a button that will change the suggested
 
 * Improve delete functionality (The delete functionality only works with selected words. The text that has been "approved" cannot be deleted).
 * Add tests for API endpoints.
-* Improve FE test's coverage.
